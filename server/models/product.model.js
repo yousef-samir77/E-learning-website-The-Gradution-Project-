@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const productSchema = mongoose.Schema(
+const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "please enter product name"],
+      required: [true, "Please enter product name"],
     },
     quantity: {
       type: Number,
@@ -26,6 +26,6 @@ const productSchema = mongoose.Schema(
   }
 );
 
+// Exporting using ES Module syntax
 const Product = mongoose.model("Product", productSchema);
-
-module.exports = Product;
+export default Product;

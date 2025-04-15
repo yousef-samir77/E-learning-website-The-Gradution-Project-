@@ -1,10 +1,10 @@
 // new project
-const express = require("express");
-const mongoose = require("mongoose");
-const productRoute = require("./routes/product.route.js");
-const dotenv = require("dotenv");
+import express from "express";
+import mongoose from "mongoose";
+import productRoute from "./routes/product.route.js";
+import dotenv from "dotenv";
 const app = express();
-dotenv.config()
+dotenv.config();
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
