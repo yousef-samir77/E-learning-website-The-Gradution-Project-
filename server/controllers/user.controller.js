@@ -2,10 +2,9 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendMail from "../middlewares/sendMail.js";
-export const register = async (req, res) => {
-
-    try {
-       const { name, email, password } = req.body;
+import TryCatch from "../middlewares/TryCatch.js";
+export const register = TryCatch(async (req, res) => {
+    const { name, email, password } = req.body;
 
        let user = await User.findOne({ email });
 
@@ -25,7 +24,8 @@ export const register = async (req, res) => {
             const activationtoken = jwt.sign({
                 user,
                 otp,}, 
-                process.env.activation_Secret,
+                process.env.ACTIVATION_SECRET
+                ,
                 { expiresIn: "5m" }
             );
 
@@ -42,9 +42,59 @@ export const register = async (req, res) => {
             message:"otp sent to your email",
             activationtoken
            })
-    } catch (error) {
-        res.status(500).json({
-             message: error.message 
+})
+
+export const verifyUser = TryCatch(async (req, res) =>
+ {
+     const {otp,activationtoken} = req.body;
+     const verfiy = jwt.verify(activationtoken, process.env.ACTIVATION_SECRET)
+
+     if(!verfiy)
+         return res.status(400)
+        .json({message:"token expired"
+
         });
+
+    if(verfiy.otp !== otp) return res.status(400).json({
+            message:"Wrong OTP",
+    });
+
+    await  User.create({
+        name : verfiy.user.name,
+        email : verfiy.user.email,
+        password : verfiy.user.password,
     }
-}
+    )
+    res.json({
+        message:"User Registered Successfully",
+    });
+});
+
+export const loginUser = TryCatch(async (req, res) => {
+    const {email, password} = req.body
+
+    const user = await User.findOne({email});
+
+    if(!user) return res.status(400).json({
+        message:"no user with this email",
+    });
+    const mathPassword = await bcrypt.compare(password, user.password);
+
+    if(!mathPassword) 
+        return res.status(400).json({
+        message:"Wrong Password",
+    });
+
+    const token = await jwt.sign({_id : user._id}, process.env.JWT_SECRET,{
+        expiresIn:"15d",
+    });
+    res.json({
+        message :`Welcome back ${user.name}`,
+        token,
+        user,
+    })
+});
+
+export const myProfile = TryCatch(async (req, res) => {
+    const user = await User.findById()
+});

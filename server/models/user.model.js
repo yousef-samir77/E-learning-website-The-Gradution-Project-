@@ -25,7 +25,7 @@ const Schema = new mongoose.Schema({
     }],
 },
 {
- Timestamps: true,
+    timestamps: true,
 }
 );
 
