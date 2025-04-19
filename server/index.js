@@ -32,7 +32,7 @@ mongoose
     `mongodb+srv://admin:${databasePassword}@crud-database.p2oubov.mongodb.net/Node-API?retryWrites=true&w=majority`
   )
   .then(() => {
-    console.log("connected");
+    console.log("Database connected");
     app.listen(3000, () => {
       console.log("listening on port 3000");
     });

@@ -19,7 +19,7 @@ const Schema = new mongoose.Schema({
         enum: ["admin", "user"],
         default: "user",
     },
-    subsscription: [{
+    subscription: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",
     }],
