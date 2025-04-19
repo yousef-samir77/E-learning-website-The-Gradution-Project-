@@ -11,9 +11,13 @@ app.use(express.urlencoded({ extended: false }));
 // importing routes
 import userRoute from "./routes/user.route.js";
 import productRoute from "./routes/product.route.js";
+import courseRoute from "./routes/courses.route.js";
+import adminRoute from "./routes/admin.route.js";
 // using routes
 app.use("/api/products", productRoute);
 app.use("/api", userRoute);
+app.use("/api", courseRoute);
+app.use("/api", adminRoute);
 
 // mongo password
 const databasePassword = process.env.MONGO_PASSWORD;
