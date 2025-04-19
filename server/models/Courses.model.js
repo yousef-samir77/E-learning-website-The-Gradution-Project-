@@ -9,6 +9,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   image: {
     type: String,
     required: true,
@@ -26,14 +27,13 @@ const schema = new mongoose.Schema({
     required: true,
   },
   createdBy: {
-    type: string,
+    type: String,
     required: true,
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  
 });
 
 export const Courses = mongoose.model("Courses", schema);
