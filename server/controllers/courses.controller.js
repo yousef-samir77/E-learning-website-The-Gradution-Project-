@@ -30,11 +30,38 @@ export const fetchLectures = TryCatch(async (req, res) => {
   }
 
   if (!user.subscription.includes(req.params.id))
-    return res.status(403).json({
-      message: "Please subscribe to the course to access lectures",
-    });
-
-   res.json({ lectures });
+        return res.status(403).json({
+        message: "Please subscribe to the course to access lectures",
+        });
+    
+    res.json({ lectures });
 });
 
 
+export const fetchLecture = TryCatch(async (req, res) => {
+    const lecture = await Lecture.findById(req.params.id);
+    const user = await User.findById(req.user._id);
+    if (user.role === "admin") {
+      return res.json({ lecture });
+    }
+  
+    if (!user.subscription.includes(req.params.id))
+      return res.status(403).json({
+        message: "Please subscribe to the course to access lectures",
+      });
+  
+    res.json({ lecture });
+});
+
+export const getMyCourses = TryCatch(async (req, res) => {
+    const courses = await Courses.find({_id: req.user.subscription});
+    
+    if (!courses) {
+      return res.status(404).json({
+        message: "No courses found",
+      });
+    }
+    res.json({
+      courses,
+    });
+});
