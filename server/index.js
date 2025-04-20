@@ -2,9 +2,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import Razorpay from "razorpay";
+
 const app = express();
 dotenv.config();
-
+export const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY,
+  key_secret: process.env.RAZORPAY_SECRET,
+});
 app.use("/uploads", express.static("uploads"));
 
 // middleware
