@@ -67,6 +67,7 @@ export const getMyCourses = TryCatch(async (req, res) => {
     courses,
   });
 });
+//editing the payment later
 
 export const checkout = TryCatch(async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -94,6 +95,7 @@ export const checkout = TryCatch(async (req, res) => {
     course,
   });
 });
+//editing the payment later
 
 export const paymentVerification = TryCatch(async (req, res) => {
   const { order_id, payment_id, signature } = req.body;

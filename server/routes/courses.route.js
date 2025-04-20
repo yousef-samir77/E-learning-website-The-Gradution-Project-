@@ -17,6 +17,7 @@ router.get("/course/:id", getSingleCourse);
 router.get("/lectures/:id", isAuth, fetchLectures);
 router.get("/lecture/:id", isAuth, fetchLecture);
 router.get("/mycourse", isAuth, getMyCourses);
+//editing the payment later
 router.post("/course/checkout/:id", isAuth, checkout);
 router.get("/verification/:id", isAuth, paymentVerification);
 

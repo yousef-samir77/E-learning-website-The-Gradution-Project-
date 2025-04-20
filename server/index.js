@@ -3,9 +3,10 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Razorpay from "razorpay";
-
+import cors from "cors";
 const app = express();
 dotenv.config();
+// edit the payment later
 export const instance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY,
   key_secret: process.env.RAZORPAY_SECRET,
@@ -13,6 +14,7 @@ export const instance = new Razorpay({
 app.use("/uploads", express.static("uploads"));
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // importing routes
