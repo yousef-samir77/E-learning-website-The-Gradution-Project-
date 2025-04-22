@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <div className="home">
         <div className="home-content">
-          <h1>Welcome to our E-learn Platform</h1>
+          <h1>Welcome to  <b> E-learn</b>  Platform</h1>
           <p>Learn, Grow, Excel</p>
           <button onClick={() => navigate("/courses")} className="common-btn">Get Started</button>
         </div>
