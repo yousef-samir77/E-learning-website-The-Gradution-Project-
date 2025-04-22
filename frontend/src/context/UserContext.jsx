@@ -46,20 +46,62 @@ export const UserContextProvider = ({ children }) => {
       toast.error(message);
     }
   }
+  // register user function
+  async function registerUser(name, email, password, navigate) {
+    setBtnLoading(true); // Start loading
+    try {
+      const { data } = await axios.post(`${server}/api/user/register`, {
+        name,
+        email,
+        password,
+      });
+      // If login successful, show success message
+      toast.success(data.message);
+      // Save token in local storage for future requests
+      localStorage.setItem("activationtoken", data.activationtoken);
+      setBtnLoading(false);
+      navigate("/Verify");
+    } catch (error) {
+      setBtnLoading(false);
+      // Show error message
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(message);
+    }
+  }
+  async function verifyOtp(otp, navigate) {
+    setBtnLoading(true); // Start loading
+    const activationtoken = localStorage.getItem("activationtoken");
+    try {
+        const { data } = await axios.post(`${server}/api/user/verify`, {
+            otp,
+            activationtoken,
+          });
+          // If login successful, show success message
+          toast.success(data.message);
+          navigate("/login"); // Redirect to homepage
+          localStorage.clear(); // Clear local storage (token, etc.)
+            setBtnLoading(false); // Stop loading
+    } catch (error) {
+        setBtnLoading(false);
+        toast.error(error?.response?.data?.message || "Something went wrong. Please try again.");
+    }
+  }
 
   // Function to get user data if token exists in localStorage
   async function FetchUser() {
     try {
       const { data } = await axios.get(`${server}/api/user/me`, {
         headers: {
-          token: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       // If token is valid, update the user and auth state
       setIsAuth(true);
-      setLoading(false);
       setUser(data.user);
+      setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false); // Even if error, stop loading
@@ -82,6 +124,8 @@ export const UserContextProvider = ({ children }) => {
         LoginUser,
         btnLoading,
         loading,
+        registerUser,
+        verifyOtp,
       }}
     >
       {children}
