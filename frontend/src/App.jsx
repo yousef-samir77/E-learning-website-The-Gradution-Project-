@@ -6,6 +6,7 @@ import Header from "./components/header/Header";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Verfiy from "./pages/auth/Verfiy";
+import Footer from "./components/footer/Footer";
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/verify" element={<Verfiy/>} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
