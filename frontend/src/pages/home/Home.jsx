@@ -1,7 +1,19 @@
-import React from "react";
-
+import React, { use } from "react";
+import { useNavigate } from "react-router-dom";
+import "./home.css";
 const Home = () => {
-  return <div>Home</div>;
+  const navigate = useNavigate();
+  return (
+    <div>
+      <div className="home">
+        <div className="home-content">
+          <h1>Welcome to our E-learn Platform</h1>
+          <p>Learn, Grow, Excel</p>
+          <button onClick={() => navigate("/courses")} className="common-btn">Get Started</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
