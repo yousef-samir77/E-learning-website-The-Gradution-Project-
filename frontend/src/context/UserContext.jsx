@@ -74,18 +74,21 @@ export const UserContextProvider = ({ children }) => {
     setBtnLoading(true); // Start loading
     const activationtoken = localStorage.getItem("activationtoken");
     try {
-        const { data } = await axios.post(`${server}/api/user/verify`, {
-            otp,
-            activationtoken,
-          });
-          // If login successful, show success message
-          toast.success(data.message);
-          navigate("/login"); // Redirect to homepage
-          localStorage.clear(); // Clear local storage (token, etc.)
-            setBtnLoading(false); // Stop loading
+      const { data } = await axios.post(`${server}/api/user/verify`, {
+        otp,
+        activationtoken,
+      });
+      // If login successful, show success message
+      toast.success(data.message);
+      navigate("/login"); // Redirect to homepage
+      localStorage.clear(); // Clear local storage (token, etc.)
+      setBtnLoading(false); // Stop loading
     } catch (error) {
-        setBtnLoading(false);
-        toast.error(error?.response?.data?.message || "Something went wrong. Please try again.");
+      setBtnLoading(false);
+      toast.error(
+        error?.response?.data?.message ||
+          "Something went wrong. Please try again."
+      );
     }
   }
 
