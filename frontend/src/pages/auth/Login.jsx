@@ -8,6 +8,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { fetchCourses } = CourseData(); // Fetch courses from context
+
   const submitHandler = async (e) => {
     e.preventDefault();
     await LoginUser(email, password, navigate);

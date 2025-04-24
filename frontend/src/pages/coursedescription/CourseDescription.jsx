@@ -29,8 +29,8 @@ const CourseDescription = () => {
         { headers: { token } }
       );
       await fetchUser(); // Fetch user data
+      await fetchCourses();
       await fetchMyCourse(); // Fetch subscribed courses
-      await fetchCourses(); 
       toast.success(data.message);
       // optionally refresh user data or subscribed courses
     } catch (err) {

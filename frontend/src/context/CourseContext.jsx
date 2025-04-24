@@ -29,12 +29,14 @@ export const CourseContextProvider = ({ children }) => {
   async function fetchMyCourse(params) {
     try {
       const { data } = await axios.get(`${server}/api/mycourse`, {
-        token: localStorage.getItem("token"),
+        headers: {
+          token: localStorage.getItem("token"), // ✅ Correct place
+        },
       });
-      setCourse(data.courses);
+      setMyCourse(data.courses);
     } catch (error) {
-      console.log(error);
-    }
+      console.error("Error fetching my course:", error.response?.data || error.message);
+    }    
   }
   useEffect(() => {
     fetchCourses();

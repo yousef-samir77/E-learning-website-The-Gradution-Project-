@@ -34,7 +34,7 @@ const Account = ({user}) => {
           </p>
 
           {/* Dashboard button (you can add functionality later) */}
-          <button className="common-btn">
+          <button onClick={()=>navigate(`/${user._id}/dashboard`)} className="common-btn">
             <MdDashboard />
             Dashboard
           </button>
