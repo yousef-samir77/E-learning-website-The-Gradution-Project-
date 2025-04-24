@@ -93,29 +93,26 @@ export const UserContextProvider = ({ children }) => {
   }
 
   // Function to get user data if token exists in localStorage
-  async function FetchUser() {
+  async function fetchUser() {
     try {
       const { data } = await axios.get(`${server}/api/user/me`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          token: localStorage.getItem("token"),
         },
       });
 
-      // If token is valid, update the user and auth state
       setIsAuth(true);
       setUser(data.user);
       setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false); // Even if error, stop loading
+      setLoading(false);
     }
   }
 
-  // When app first loads, try to fetch user data if token exists
   useEffect(() => {
-    FetchUser();
+    fetchUser();
   }, []);
-
   // Provide the values to all components
   return (
     <UserContext.Provider
@@ -129,6 +126,7 @@ export const UserContextProvider = ({ children }) => {
         loading,
         registerUser,
         verifyOtp,
+        fetchUser,
       }}
     >
       {children}

@@ -1,12 +1,11 @@
 import express from "express";
 import {
-    checkout,
-    fetchLecture,
+  fetchLecture,
   fetchLectures,
   getAllCourses,
   getMyCourses,
   getSingleCourse,
-  paymentVerification,
+  subscribeToCourse,
 } from "../controllers/courses.controller.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
@@ -17,9 +16,10 @@ router.get("/course/:id", getSingleCourse);
 router.get("/lectures/:id", isAuth, fetchLectures);
 router.get("/lecture/:id", isAuth, fetchLecture);
 router.get("/mycourse", isAuth, getMyCourses);
-//editing the payment later
-router.post("/course/checkout/:id", isAuth, checkout);
-router.get("/verification/:id", isAuth, paymentVerification);
+router.post("/subscribe/:id", isAuth, subscribeToCourse);
 
+//editing the payment later
+//router.post("/course/stripe-session/:id", isAuth,createStripeSession );
+//router.get("/verification/:id", isAuth, paymentVerification);
 
 export default router;

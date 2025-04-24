@@ -11,6 +11,9 @@ import About from "./pages/about/About";
 import Account from "./pages/account/Account";
 import { UserData } from "./context/UserContext";
 import Loading from "./components/loading/Loading";
+import Courses from "./pages/courses/Courses";
+import CourseDescription from "./pages/coursedescription/CourseDescription";
+import PaymentSuccess from "./pages/paymentsuccess/PaymentSuccess";
 
 function App() {
   const { isAuth, user, loading } = UserData(); // Get user and auth state from context
@@ -28,13 +31,14 @@ function App() {
 
             {/* About page is public */}
             <Route path="/about" element={<About />} />
+            {/* Courses page is public */}
+            <Route path="/courses" element={<Courses />} />
 
             {/* If user is logged in, show Account. Otherwise, go to Login */}
             <Route
               path="/account"
               element={isAuth ? <Account user={user} /> : <Login />}
             />
-
             {/* Login route, show Home if already logged in */}
             <Route path="/login" element={isAuth ? <Home /> : <Login />} />
 
@@ -46,6 +50,10 @@ function App() {
 
             {/* Verify route, show Home if already logged in */}
             <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
+            <Route path="/course/study/:id" element={isAuth ? <CourseDescription /> : <Login />} />
+            <Route path="/course/:id" element={isAuth ? <CourseDescription user={user} /> : <Login />} />
+            <Route path="/payment-success/:id" element={isAuth ? <PaymentSuccess user = {user} /> : <Login />} />
+            
           </Routes>
           <Footer /> {/* Footer is always shown */}
         </BrowserRouter>
