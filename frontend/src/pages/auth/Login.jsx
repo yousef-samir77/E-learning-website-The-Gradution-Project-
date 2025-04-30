@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import "./auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import { UserData } from "../../context/UserContext"; //
+import { CourseData } from "../../context/CourseContext";
 const Login = () => {
   const navigate = useNavigate();
   const { btnloading, LoginUser } = UserData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { fetchCourses } = CourseData(); // Fetch courses from context
+  const { fetchMyCourse } = CourseData(); // Fetch courses from context
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await LoginUser(email, password, navigate);
+    await LoginUser(email, password, navigate, fetchMyCourse); // Pass fetchMyCourse as a callback
   };
   return (
     <div className="auth-page">

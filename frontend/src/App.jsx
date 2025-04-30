@@ -16,6 +16,10 @@ import CourseDescription from "./pages/coursedescription/CourseDescription";
 import PaymentSuccess from "./pages/paymentsuccess/PaymentSuccess";
 import Dashboard from "./pages/dashboard/Dashboard";
 import CourseStudy from "./pages/courseStudy/CourseStudy";
+import Lecture from "./pages/lecture/Lecture";
+import AdminDashbord from "./admin/Dashboard/AdminDashbord";
+import AdminCourses from "./admin/Courses/AdminCourses";
+import AdminUsers from "./admin/Users/AdminUsers";
 
 function App() {
   const { isAuth, user, loading } = UserData(); // Get user and auth state from context
@@ -71,6 +75,23 @@ function App() {
             <Route
               path="/course/study/:id"
               element={isAuth ? <CourseStudy user={user} /> : <Login />}
+            />
+            <Route
+              path="/lectures/:id"
+              element={isAuth ? <Lecture user={user} /> : <Login />}
+            />
+             <Route
+              path="/admin/dashboard"
+              element={isAuth ? <AdminDashbord user={user} /> : <Login />}
+            />
+
+            <Route
+              path="/admin/course"
+              element={isAuth ? <AdminCourses user={user} /> : <Login />}
+            />
+            <Route
+              path="/admin/users"
+              element={isAuth ? <AdminUsers user={user} /> : <Login />}
             />
           </Routes>
           <Footer /> {/* Footer is always shown */}

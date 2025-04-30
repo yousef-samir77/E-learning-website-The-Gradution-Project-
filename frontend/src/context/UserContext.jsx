@@ -15,7 +15,7 @@ export const UserContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true); // To show general loading when app starts
 
   // Function to log in user using email and password
-  async function LoginUser(email, password, navigate) {
+  async function LoginUser(email, password, navigate,fetchMyCourse) {
     setBtnLoading(true); // Start loading
 
     try {
@@ -35,6 +35,7 @@ export const UserContextProvider = ({ children }) => {
       setIsAuth(true);
       setBtnLoading(false);
       navigate("/"); // Redirect to homepage
+      fetchMyCourse(); // Fetch subscribed courses
     } catch (error) {
       setBtnLoading(false);
       setIsAuth(false);
