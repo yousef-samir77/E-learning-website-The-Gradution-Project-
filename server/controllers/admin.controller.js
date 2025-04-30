@@ -105,3 +105,33 @@ export const getAllStats = TryCatch(async (req, res) => {
     stats,
   });
 });
+
+export const getAllUser = TryCatch(async (req, res) => 
+  {
+    const users = await User.find({ _id: { $ne: req.user._id } }).select(
+      "-password"
+    );
+  
+    res.status(200).json({
+      success: true,
+      users,
+    }); 
+  })
+
+  export const updateRole = TryCatch(async (req, res) => {
+    if (req.body.mainrole !== "superadmin") {
+      return res.status(400).json({
+        message: "Role must be either admin or user",
+      });
+    }
+    const  user = await User.findById(req.params.id);
+
+    if (user.role === "admin") {
+      user.role = "user";
+      await user.save();
+
+      return res.status(200).json({
+        message: "User role updated to user",
+      });
+    }
+  })

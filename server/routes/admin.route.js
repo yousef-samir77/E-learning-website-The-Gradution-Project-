@@ -6,13 +6,17 @@ import {
   deleteCourse,
   deleteLecture,
   getAllStats,
+  getAllUser,
+  updateRole,
 } from "../controllers/admin.controller.js";
 import { uploadFiles } from "../middlewares/multer.middleware.js";
 
 const router = express.Router();
 router.post("/course/new", isAuth, isAdmin, uploadFiles, createCourse);
 router.post("/course/:id", isAuth, isAdmin, uploadFiles, addLecture);
-router.delete("/course/:id", isAuth, isAdmin,  deleteCourse);
+router.delete("/course/:id", isAuth, isAdmin, deleteCourse);
 router.delete("/lecture/:id", isAuth, isAdmin, deleteLecture);
 router.get("/stats", isAuth, isAdmin, getAllStats);
+router.put("/users", isAuth, updateRole);
+router.get("/users", isAuth, isAdmin, getAllUser);
 export default router;

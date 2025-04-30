@@ -10,7 +10,6 @@ const AdminUsers = ({ user }) => {
   const navigate = useNavigate();
 
   if (user && user.mainrole !== "superadmin") return navigate("/");
-
   const [users, setUsers] = useState([]);
 
   async function fetchUsers() {

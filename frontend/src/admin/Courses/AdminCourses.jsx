@@ -16,7 +16,7 @@ const categories = [
   "Artificial Intelligence",
 ];
 
-const AdminCourses = ({ user }) => {
+const AdminCourses = ({ user }) => {2
   const navigate = useNavigate();
 
   if (user && user.role !== "admin") return navigate("/");
