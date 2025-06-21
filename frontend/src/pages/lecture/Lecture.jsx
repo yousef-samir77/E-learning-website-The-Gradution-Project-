@@ -121,7 +121,7 @@ const Lecture = ({ user }) => {
   const [completed, setCompleted] = useState("");
   const [completedLec, setCompletedLec] = useState("");
   const [lectLength, setLectLength] = useState("");
-  const [progress, setProgress] = useState([]);
+  const [progress, setProgress] = useState(null); // Initialize as null
 
   async function fetchProgress() {
     try {
@@ -137,7 +137,7 @@ const Lecture = ({ user }) => {
       setCompleted(data.courseProgressPercentage);
       setCompletedLec(data.completedLectures);
       setLectLength(data.allLectures);
-      setProgress(data.progress);
+      setProgress(data.progressDetails); // Use progressDetails
     } catch (error) {
       console.log(error);
     }
@@ -167,6 +167,7 @@ const Lecture = ({ user }) => {
     fetchLectures();
     fetchProgress();
   }, []);
+
   return (
     <>
       {loading ? (
@@ -174,9 +175,9 @@ const Lecture = ({ user }) => {
       ) : (
         <>
           <div className="progress">
-            Lecture completed - {completedLec} out of {lectLength} <br />
-            <progress value={completed} max={100}></progress> {completed} %
-          </div>
+  Lecture completed - {completedLec} out of {lectLength} <br />
+  <progress value={completed} max={100}></progress> {Math.round(completed)} %
+</div>
           <div className="lecture-page">
             <div className="left">
               {lecLoading ? (
@@ -260,28 +261,26 @@ const Lecture = ({ user }) => {
 
               {lectures && lectures.length > 0 ? (
                 lectures.map((e, i) => (
-                  <>
+                  <React.Fragment key={i}>
                     <div
                       onClick={() => fetchLecture(e._id)}
-                      key={i}
                       className={`lecture-number ${
                         lecture._id === e._id && "active"
                       }`}
                     >
                       {i + 1}. {e.title}{" "}
-                      {progress[0] &&
-                        progress[0].completedLectures.includes(e._id) && (
-                          <span
-                            style={{
-                              background: "red",
-                              padding: "2px",
-                              borderRadius: "6px",
-                              color: "greenyellow",
-                            }}
-                          >
-                            <TiTick />
-                          </span>
-                        )}
+                      {progress && progress.completedLectures.includes(e._id) && (
+                        <span
+                          style={{
+                            background: "red",
+                            padding: "2px",
+                            borderRadius: "6px",
+                            color: "greenyellow",
+                          }}
+                        >
+                          <TiTick />
+                        </span>
+                      )}
                     </div>
                     {user && user.role === "admin" && (
                       <button
@@ -292,7 +291,7 @@ const Lecture = ({ user }) => {
                         Delete {e.title}
                       </button>
                     )}
-                  </>
+                  </React.Fragment>
                 ))
               ) : (
                 <p>No Lectures Yet!</p>

@@ -1,7 +1,6 @@
 import TryCatch from "../middlewares/TryCatch.js";
 import { Courses } from "../models/Courses.model.js";
 import { Lecture } from "../models/Lecture.model.js";
-import { Payment } from "../models/payment.model.js";
 import { Progress } from "../models/Progress.model.js";
 import { User } from "../models/user.model.js";
 import crypto from "crypto";
