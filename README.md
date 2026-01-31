@@ -185,8 +185,4 @@ It is intentionally **simple but realistic**, focusing on backend fundamentals r
 **Yousef Samir Saadeldin**
 Computer Science (software engineer ) graduate focused on backend development. This project reflects my understanding of real backend workflows using Node.js, Express, and MongoDB.
 
----
 
-## License
-
-ISC
